@@ -10,125 +10,125 @@ public class WumpusMap {
     }
     public void createMap() {
         grid = new WumpusSquare[NUM_ROWS][NUM_COLUMNS];
-        for(int p = 0;p < 10;p++) {
-            for(int y = 0;y < 10;y++) {
-                grid[p][y] = new WumpusSquare();
+        for(int row = 0; row < 10; row++) {
+            for(int column = 0; column < 10; column++) {
+                grid[row][column] = new WumpusSquare();
             }
         }
-        for(int i = 0;i < 10;i++) {
-            int r = (int) (Math.random() * 10);
-            int c = (int) (Math.random() * 10);
-            if (grid[r][c].toString().equals("*")) {
-                grid[r][c].setPit(true);
-                if (r == 0 && c == 0) {
-                    grid[r + 1][c].setBreeze(true);
-                    grid[r][c + 1].setBreeze(true);
+        for(int placedPits = 0; placedPits < 10; placedPits++) {
+            int row = (int) (Math.random() * 10);
+            int column = (int) (Math.random() * 10);
+            if (grid[row][column].toString().equals("*")) {
+                grid[row][column].setPit(true);
+                if (row == 0 && column == 0) {
+                    grid[row + 1][column].setBreeze(true);
+                    grid[row][column + 1].setBreeze(true);
                 }
-                else if(r == 9 && c == 9) {
-                    grid[r - 1][c].setBreeze(true);
-                    grid[r][c - 1].setBreeze(true);
+                else if(row == 9 && column == 9) {
+                    grid[row - 1][column].setBreeze(true);
+                    grid[row][column - 1].setBreeze(true);
                 }
-                else if(r == 0 && c == 9) {
-                    grid[r + 1][c].setBreeze(true);
-                    grid[r][c - 1].setBreeze(true);
+                else if(row == 0 && column == 9) {
+                    grid[row + 1][column].setBreeze(true);
+                    grid[row][column - 1].setBreeze(true);
                 }
-                else if(r == 9 && c == 0) {
-                    grid[r - 1][c].setBreeze(true);
-                    grid[r][c + 1].setBreeze(true);
+                else if(row == 9 && column == 0) {
+                    grid[row - 1][column].setBreeze(true);
+                    grid[row][column + 1].setBreeze(true);
                 }
-                else if (r == 0) {
-                    grid[r + 1][c].setBreeze(true);
-                    grid[r][c + 1].setBreeze(true);
-                    grid[r][c - 1].setBreeze(true);
-                } else if (c == 0) {
-                    grid[r + 1][c].setBreeze(true);
-                    grid[r - 1][c].setBreeze(true);
-                    grid[r][c + 1].setBreeze(true);
+                else if (row == 0) {
+                    grid[row + 1][column].setBreeze(true);
+                    grid[row][column + 1].setBreeze(true);
+                    grid[row][column - 1].setBreeze(true);
+                } else if (column == 0) {
+                    grid[row + 1][column].setBreeze(true);
+                    grid[row - 1][column].setBreeze(true);
+                    grid[row][column + 1].setBreeze(true);
                 }
-                else if (r == 9) {
-                    grid[r - 1][c].setBreeze(true);
-                    grid[r][c + 1].setBreeze(true);
-                    grid[r][c - 1].setBreeze(true);
-                } else if (c == 9) {
-                    grid[r + 1][c].setBreeze(true);
-                    grid[r - 1][c].setBreeze(true);
-                    grid[r][c - 1].setBreeze(true);
+                else if (row == 9) {
+                    grid[row - 1][column].setBreeze(true);
+                    grid[row][column + 1].setBreeze(true);
+                    grid[row][column - 1].setBreeze(true);
+                } else if (column == 9) {
+                    grid[row + 1][column].setBreeze(true);
+                    grid[row - 1][column].setBreeze(true);
+                    grid[row][column - 1].setBreeze(true);
                 } else {
-                    grid[r + 1][c].setBreeze(true);
-                    grid[r - 1][c].setBreeze(true);
-                    grid[r][c + 1].setBreeze(true);
-                    grid[r][c - 1].setBreeze(true);
+                    grid[row + 1][column].setBreeze(true);
+                    grid[row - 1][column].setBreeze(true);
+                    grid[row][column + 1].setBreeze(true);
+                    grid[row][column - 1].setBreeze(true);
                 }
             } else {
-                i--;
+                placedPits--;
             }
         }
-        boolean a = true;
-        while (a) {
-            int r = (int) (Math.random() * 10);
-            int c = (int) (Math.random() * 10);
-            if (!grid[r][c].getPit()) {
-                grid[r][c].setGold(true);
-                a = false;
+        boolean goldPlaced = false;
+        while (!goldPlaced) {
+            int row = (int) (Math.random() * 10);
+            int column = (int) (Math.random() * 10);
+            if (!grid[row][column].getPit()) {
+                grid[row][column].setGold(true);
+                goldPlaced = true;
             }
         }
-        boolean b = true;
-        while (b) {
-            int r = (int) (Math.random() * 10);
-            int c = (int) (Math.random() * 10);
-            if (!grid[r][c].getPit()) {
-                grid[r][c].setWumpus(true);
-                if (r == 0 && c == 0) {
-                    grid[r + 1][c].setStench(true);
-                    grid[r][c + 1].setStench(true);
+        boolean wumpusPlaced = true;
+        while (wumpusPlaced) {
+            int row = (int) (Math.random() * 10);
+            int column = (int) (Math.random() * 10);
+            if (!grid[row][column].getPit()) {
+                grid[row][column].setWumpus(true);
+                if (row == 0 && column == 0) {
+                    grid[row + 1][column].setStench(true);
+                    grid[row][column + 1].setStench(true);
                 }
-                else if(r == 9 && c == 9) {
-                    grid[r - 1][c].setStench(true);
-                    grid[r][c - 1].setStench(true);
+                else if(row == 9 && column == 9) {
+                    grid[row - 1][column].setStench(true);
+                    grid[row][column - 1].setStench(true);
                 }
-                else if(r == 0 && c == 9) {
-                    grid[r + 1][c].setStench(true);
-                    grid[r][c - 1].setStench(true);
+                else if(row == 0 && column == 9) {
+                    grid[row + 1][column].setStench(true);
+                    grid[row][column - 1].setStench(true);
                 }
-                else if(r == 9 && c == 0) {
-                    grid[r - 1][c].setStench(true);
-                    grid[r][c + 1].setStench(true);
+                else if(row == 9 && column == 0) {
+                    grid[row - 1][column].setStench(true);
+                    grid[row][column + 1].setStench(true);
                 }
-                else if (r == 0) {
-                    grid[r + 1][c].setStench(true);
-                    grid[r][c + 1].setStench(true);
-                    grid[r][c - 1].setStench(true);
-                } else if (c == 0) {
-                    grid[r + 1][c].setStench(true);
-                    grid[r - 1][c].setStench(true);
-                    grid[r][c + 1].setStench(true);
+                else if (row == 0) {
+                    grid[row + 1][column].setStench(true);
+                    grid[row][column + 1].setStench(true);
+                    grid[row][column - 1].setStench(true);
+                } else if (column == 0) {
+                    grid[row + 1][column].setStench(true);
+                    grid[row - 1][column].setStench(true);
+                    grid[row][column + 1].setStench(true);
                 }
-                else if (r == 9) {
-                    grid[r - 1][c].setStench(true);
-                    grid[r][c + 1].setStench(true);
-                    grid[r][c - 1].setStench(true);
-                } else if (c == 9) {
-                    grid[r + 1][c].setStench(true);
-                    grid[r - 1][c].setStench(true);
-                    grid[r][c - 1].setStench(true);
+                else if (row == 9) {
+                    grid[row - 1][column].setStench(true);
+                    grid[row][column + 1].setStench(true);
+                    grid[row][column - 1].setStench(true);
+                } else if (column == 9) {
+                    grid[row + 1][column].setStench(true);
+                    grid[row - 1][column].setStench(true);
+                    grid[row][column - 1].setStench(true);
                 } else {
-                    grid[r + 1][c].setStench(true);
-                    grid[r - 1][c].setStench(true);
-                    grid[r][c + 1].setStench(true);
-                    grid[r][c - 1].setStench(true);
+                    grid[row + 1][column].setStench(true);
+                    grid[row - 1][column].setStench(true);
+                    grid[row][column + 1].setStench(true);
+                    grid[row][column - 1].setStench(true);
                 }
-                b = false;
+                wumpusPlaced = false;
             }
         }
-        boolean d = true;
-        while (d) {
-            int r = (int) (Math.random() * 10);
-            int c = (int) (Math.random() * 10);
-            if (!grid[r][c].getPit() && !grid[r][c].getGold() && !grid[r][c].getWumpus()) {
-                grid[r][c].setLadder(true);
-                ladderR = r;
-                ladderC = c;
-                d = false;
+        boolean ladderPlaced = false;
+        while (!ladderPlaced) {
+            int row = (int) (Math.random() * 10);
+            int column = (int) (Math.random() * 10);
+            if (!grid[row][column].getPit() && !grid[row][column].getGold() && !grid[row][column].getWumpus()) {
+                grid[row][column].setLadder(true);
+                ladderR = row;
+                ladderC = column;
+                ladderPlaced = true;
             }
         }
     }

@@ -88,72 +88,72 @@ public class WumpusPanel extends JPanel implements KeyListener {
         g.drawString("Messages: ", 220, 575);
         g.setColor(Color.CYAN);
         g.setFont(new Font("Calibre", Font.PLAIN, 15));
-        int l = 0;
+        int messageLineIndex = 0;
         if(status == WON) {
             g.drawString("You climb out of the cave with the treasure", 220, 595);
         }
         else {
             if (map.getSquare(player.getColPosition(), player.getRowPosition()).getBreeze()) {
-                g.drawString("You feel a breeze", 220, 595 + l * 15);
-                l++;
+                g.drawString("You feel a breeze", 220, 595 + messageLineIndex * 15);
+                messageLineIndex++;
             }
             if (map.getSquare(player.getColPosition(), player.getRowPosition()).getStench()) {
-                g.drawString("You smell a stench", 220, 595 + l * 15);
-                l++;
+                g.drawString("You smell a stench", 220, 595 + messageLineIndex * 15);
+                messageLineIndex++;
             }
             if (map.getSquare(player.getColPosition(), player.getRowPosition()).getPit()) {
-                g.drawString("You fell down a pit to your death", 220, 595 + l * 15);
-                l++;
+                g.drawString("You fell down a pit to your death", 220, 595 + messageLineIndex * 15);
+                messageLineIndex++;
             }
             if (map.getSquare(player.getColPosition(), player.getRowPosition()).getWumpus()) {
-                g.drawString("You are eaten by the Wumpus", 220, 595 + l * 15);
-                l++;
+                g.drawString("You are eaten by the Wumpus", 220, 595 + messageLineIndex * 15);
+                messageLineIndex++;
             }
             if (map.getSquare(player.getColPosition(), player.getRowPosition()).getGold()) {
-                g.drawString("You see a glimmer", 220, 595 + l * 15);
-                l++;
+                g.drawString("You see a glimmer", 220, 595 + messageLineIndex * 15);
+                messageLineIndex++;
             }
             if (map.getSquare(player.getColPosition(), player.getRowPosition()).getLadder()) {
-                g.drawString("You bump into a ladder", 220, 595 + l * 15);
-                l++;
+                g.drawString("You bump into a ladder", 220, 595 + messageLineIndex * 15);
+                messageLineIndex++;
             }
             if (ws) {
-                g.drawString("You hear a scream", 220, 595 + l * 15);
+                g.drawString("You hear a scream", 220, 595 + messageLineIndex * 15);
                 ws = false;
             }
         }
-        int row = 0;
-        int col = 0;
-        for(int r = 20;r < 520;r+=50) {
-            for (int c = 50; c < 550; c += 50) {
-                g.drawImage(floor, c, r, null);
-                if (map.getSquare(col, row).getPit()) {
-                    g.drawImage(pit, c, r, null);
+        int boardRow = 0;
+        int boardColumn = 0;
+        for(int drawY = 20; drawY < 520; drawY += 50) {
+            for (int drawX = 50; drawX < 550; drawX += 50) {
+                g.drawImage(floor, drawX, drawY, null);
+                if (map.getSquare(boardColumn, boardRow).getPit()) {
+                    g.drawImage(pit, drawX, drawY, null);
                 }
-                else if (map.getSquare(col, row).getBreeze() == true) {
-                    g.drawImage(breeze, c, r, null);
-                }if (map.getSquare(col, row).getStench() == true && !map.getSquare(col, row).getPit()) {
-                    g.drawImage(stench, c, r, null);
-                } if (map.getSquare(col, row).getGold() == true) {
-                    g.drawImage(gold, c, r, null);
-                } if (map.getSquare(col, row).getLadder() == true) {
-                    g.drawImage(ladder, c, r, null);
-                } if (map.getSquare(col, row).getWumpus() == true) {
-                    g.drawImage(wumpus, c, r, null);
-                } if (map.getSquare(col, row).getDeadWumpus() == true) {
-                    g.drawImage(deadWumpus, c, r, null);
+                else if (map.getSquare(boardColumn, boardRow).getBreeze() == true) {
+                    g.drawImage(breeze, drawX, drawY, null);
+                }if (map.getSquare(boardColumn, boardRow).getStench() == true && !map.getSquare(boardColumn, boardRow).getPit()) {
+                    g.drawImage(stench, drawX, drawY, null);
+                } if (map.getSquare(boardColumn, boardRow).getGold() == true) {
+                    g.drawImage(gold, drawX, drawY, null);
+                } if (map.getSquare(boardColumn, boardRow).getLadder() == true) {
+                    g.drawImage(ladder, drawX, drawY, null);
+                } if (map.getSquare(boardColumn, boardRow).getWumpus() == true) {
+                    g.drawImage(wumpus, drawX, drawY, null);
+                } if (map.getSquare(boardColumn, boardRow).getDeadWumpus() == true) {
+                    g.drawImage(deadWumpus, drawX, drawY, null);
                 }
                 if(!cheat) {
-                    if(!map.getSquare(col, row).getVisited()) {
-                        if (!(player.getRowPosition() == row && player.getColPosition() == col)) {
-                            g.drawImage(fog, c, r, 50, 50, null);
+                    if(!map.getSquare(boardColumn, boardRow).getVisited()) {
+                        if (!(player.getRowPosition() == boardRow && player.getColPosition() == boardColumn)) {
+                            g.drawImage(fog, drawX, drawY, 50, 50, null);
                         }
                     }
                 }
-                col++;
+                boardColumn++;
             }
-            row++;
-            col = 0;
+            boardRow++;
+            boardColumn = 0;
         }
         if(first) {
             int o = map.getLadderRow();
@@ -263,7 +263,6 @@ public class WumpusPanel extends JPanel implements KeyListener {
             if(player.getGold()) {
                 if(player.getRowPosition() == map.getLadderRow() && player.getColPosition() == map.getLadderCol()) {
                     status = WON;
-                    //Add Message
                 }
             }
         }
