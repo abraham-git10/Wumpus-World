@@ -3,5 +3,6 @@
 public class Main {
     public static void main(String[] args) {
         new WumpusFrame("Wumpus World", 600, 670);
+        System.out.println("It worked");
     }
 }
