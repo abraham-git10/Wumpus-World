@@ -1,4 +1,4 @@
-Game description
+Game description:
 Wumpus World is a grid-based adventure/puzzle game.
 You explore a cave arranged in a grid. Some grid spaces have pits (you fall and die), one grid space has the Wumpus Monster (that eats you), and one has gold. You can’t see these directly; instead, you get clues in the message box when you stand in neighboring grid spaces and must reason about where the dangers are.
 
